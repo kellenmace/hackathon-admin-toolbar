@@ -29,6 +29,7 @@ export const scalarsEnumsHash = {
   MimeTypeEnum: true,
   OrderEnum: true,
   PageIdType: true,
+  PluginStatusEnum: true,
   PostFormatIdType: true,
   PostIdType: true,
   PostObjectFieldFormatEnum: true,
@@ -51,6 +52,20 @@ export const scalarsEnumsHash = {
 };
 
 export const generatedSchema = {
+  AdminBarMenuItem: {
+    __typename: { __type: 'String!' },
+    group: { __type: 'Boolean' },
+    href: { __type: 'String' },
+    id: { __type: 'String' },
+    meta: { __type: 'AdminBarMenuItemMeta' },
+    parent: { __type: 'String' },
+    title: { __type: 'String' },
+  },
+  AdminBarMenuItemMeta: {
+    __typename: { __type: 'String!' },
+    class: { __type: 'String' },
+    tabindex: { __type: 'String' },
+  },
   AtlasContentModelerSettingsSettings: {
     __typename: { __type: 'String!' },
     atlasContentModelerUsageTracking: { __type: 'String' },
@@ -300,6 +315,14 @@ export const generatedSchema = {
   },
   CommentAuthor: {
     __typename: { __type: 'String!' },
+    avatar: {
+      __type: 'Avatar',
+      __args: {
+        forceDefault: 'Boolean',
+        rating: 'AvatarRatingEnum',
+        size: 'Int',
+      },
+    },
     databaseId: { __type: 'Int!' },
     email: { __type: 'String' },
     id: { __type: 'ID!' },
@@ -394,6 +417,7 @@ export const generatedSchema = {
   },
   Commenter: {
     __typename: { __type: 'String!' },
+    avatar: { __type: 'Avatar' },
     databaseId: { __type: 'Int!' },
     email: { __type: 'String' },
     id: { __type: 'ID!' },
@@ -429,6 +453,7 @@ export const generatedSchema = {
   },
   ContentNode: {
     __typename: { __type: 'String!' },
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' },
     conditionalTags: { __type: 'ConditionalTags' },
     contentType: { __type: 'ContentNodeToContentTypeConnectionEdge' },
     contentTypeName: { __type: 'String!' },
@@ -710,11 +735,14 @@ export const generatedSchema = {
   CreateProjectInput: {
     authorId: { __type: 'ID' },
     clientMutationId: { __type: 'String' },
+    contentArea: { __type: 'String' },
     date: { __type: 'String' },
     menuOrder: { __type: 'Int' },
     password: { __type: 'String' },
+    projectTitle: { __type: 'String!' },
     slug: { __type: 'String' },
     status: { __type: 'PostStatusEnum' },
+    summary: { __type: 'String' },
     title: { __type: 'String' },
   },
   CreateProjectPayload: {
@@ -742,6 +770,8 @@ export const generatedSchema = {
     password: { __type: 'String' },
     slug: { __type: 'String' },
     status: { __type: 'PostStatusEnum' },
+    testimonialAuthor: { __type: 'String' },
+    testimonialContent: { __type: 'String' },
     title: { __type: 'String' },
   },
   CreateTestimonialPayload: {
@@ -1087,6 +1117,7 @@ export const generatedSchema = {
   },
   MediaItem: {
     __typename: { __type: 'String!' },
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' },
     altText: { __type: 'String' },
     ancestors: {
       __type: 'HierarchicalContentNodeToContentNodeAncestorsConnection',
@@ -1304,6 +1335,7 @@ export const generatedSchema = {
     path: { __type: 'String' },
     target: { __type: 'String' },
     title: { __type: 'String' },
+    uri: { __type: 'String' },
     url: { __type: 'String' },
   },
   MenuItemLinkable: {
@@ -1399,6 +1431,7 @@ export const generatedSchema = {
   },
   NodeWithFeaturedImage: {
     __typename: { __type: 'String!' },
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' },
     conditionalTags: { __type: 'ConditionalTags' },
     contentType: { __type: 'ContentNodeToContentTypeConnectionEdge' },
     contentTypeName: { __type: 'String!' },
@@ -1479,6 +1512,7 @@ export const generatedSchema = {
   },
   Page: {
     __typename: { __type: 'String!' },
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' },
     ancestors: {
       __type: 'HierarchicalContentNodeToContentNodeAncestorsConnection',
       __args: {
@@ -1679,6 +1713,7 @@ export const generatedSchema = {
   },
   Post: {
     __typename: { __type: 'String!' },
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' },
     author: { __type: 'NodeWithAuthorToUserConnectionEdge' },
     authorDatabaseId: { __type: 'Int' },
     authorId: { __type: 'ID' },
@@ -2217,6 +2252,7 @@ export const generatedSchema = {
   },
   Project: {
     __typename: { __type: 'String!' },
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' },
     author: { __type: 'NodeWithAuthorToUserConnectionEdge' },
     authorDatabaseId: { __type: 'Int' },
     authorId: { __type: 'ID' },
@@ -2602,6 +2638,11 @@ export const generatedSchema = {
     __typename: { __type: 'String!' },
     cursor: { __type: 'String' },
     node: { __type: 'Plugin' },
+  },
+  RootQueryToPluginConnectionWhereArgs: {
+    search: { __type: 'String' },
+    stati: { __type: '[PluginStatusEnum]' },
+    status: { __type: 'PluginStatusEnum' },
   },
   RootQueryToPostConnection: {
     __typename: { __type: 'String!' },
@@ -3139,6 +3180,7 @@ export const generatedSchema = {
   },
   Testimonial: {
     __typename: { __type: 'String!' },
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' },
     author: { __type: 'NodeWithAuthorToUserConnectionEdge' },
     authorDatabaseId: { __type: 'Int' },
     authorId: { __type: 'ID' },
@@ -3329,12 +3371,15 @@ export const generatedSchema = {
   UpdateProjectInput: {
     authorId: { __type: 'ID' },
     clientMutationId: { __type: 'String' },
+    contentArea: { __type: 'String' },
     date: { __type: 'String' },
     id: { __type: 'ID!' },
     menuOrder: { __type: 'Int' },
     password: { __type: 'String' },
+    projectTitle: { __type: 'String' },
     slug: { __type: 'String' },
     status: { __type: 'PostStatusEnum' },
+    summary: { __type: 'String' },
     title: { __type: 'String' },
   },
   UpdateProjectPayload: {
@@ -3397,6 +3442,8 @@ export const generatedSchema = {
     password: { __type: 'String' },
     slug: { __type: 'String' },
     status: { __type: 'PostStatusEnum' },
+    testimonialAuthor: { __type: 'String' },
+    testimonialContent: { __type: 'String' },
     title: { __type: 'String' },
   },
   UpdateTestimonialPayload: {
@@ -4137,7 +4184,13 @@ export const generatedSchema = {
     plugin: { __type: 'Plugin', __args: { id: 'ID!' } },
     plugins: {
       __type: 'RootQueryToPluginConnection',
-      __args: { after: 'String', before: 'String', first: 'Int', last: 'Int' },
+      __args: {
+        after: 'String',
+        before: 'String',
+        first: 'Int',
+        last: 'Int',
+        where: 'RootQueryToPluginConnectionWhereArgs',
+      },
     },
     post: {
       __type: 'Post',

@@ -21,13 +21,16 @@ const postsPerPage = 3;
 
 export default function Page() {
   const { useQuery, usePosts } = client;
+
   const generalSettings = useQuery().generalSettings;
+
   const posts = usePosts({
     first: postsPerPage,
     where: {
       categoryName: 'uncategorized',
     },
   });
+  
   const testimonials = useQuery().testimonials();
   const mainBanner = {
     sourceUrl: '/static/banner.jpeg',
