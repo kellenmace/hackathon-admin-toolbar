@@ -10,6 +10,7 @@ import {
   SEO,
 } from 'components';
 import { is404Cpt } from 'utils';
+import AdminMenuBar from 'components/AdminMenuBar/AdminMenuBar';
 
 export function ProjectComponent({ project }) {
   const { useQuery } = client;
@@ -20,6 +21,11 @@ export function ProjectComponent({ project }) {
       <SEO
         title={`${project?.title()} - ${generalSettings?.title}`}
         imageUrl={project?.featuredImage?.node?.sourceUrl?.()}
+      />
+
+      <AdminMenuBar
+        rootQuery="project"
+        args={{ id: project.uri, idType: 'URI' }}
       />
 
       <Header />

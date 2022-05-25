@@ -9,6 +9,7 @@ import {
   SEO,
 } from 'components';
 import { pageTitle } from 'utils';
+import AdminMenuBar from 'components/AdminMenuBar/AdminMenuBar';
 
 export function PageComponent({ page }) {
   const { useQuery } = client;
@@ -24,6 +25,8 @@ export function PageComponent({ page }) {
         )}
         imageUrl={page?.featuredImage?.node?.sourceUrl?.()}
       />
+
+      <AdminMenuBar rootQuery="page" args={{ id: page.uri, idType: 'URI' }} />
 
       <Header />
 

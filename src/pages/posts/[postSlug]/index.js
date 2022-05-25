@@ -10,6 +10,7 @@ import {
   TaxonomyTerms,
 } from 'components';
 import { pageTitle } from 'utils';
+import AdminMenuBar from 'components/AdminMenuBar/AdminMenuBar';
 
 export function PostComponent({ post }) {
   const { useQuery } = client;
@@ -25,6 +26,8 @@ export function PostComponent({ post }) {
         )}
         imageUrl={post?.featuredImage?.node?.sourceUrl?.()}
       />
+
+      <AdminMenuBar rootQuery="post" args={{ id: post.uri, idType: 'URI' }} />
 
       <Header />
 

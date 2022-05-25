@@ -12,6 +12,7 @@ import {
 import { getNextStaticProps } from '@faustjs/next';
 import { pageTitle } from 'utils';
 import useNodePagination from 'hooks/useNodePagination';
+import AdminMenuBar from 'components/AdminMenuBar/AdminMenuBarMenu';
 
 /**
  * Prepass fields for project nodes. This lists all the pieces of data we need
@@ -48,6 +49,8 @@ export default function Page() {
   return (
     <>
       <SEO title={pageTitle(generalSettings, 'Portfolio')} />
+
+      <AdminMenuBar rootQuery="projects" />
 
       <Header />
 
