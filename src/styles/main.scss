@@ -1093,6 +1093,10 @@ html {
   scroll-padding-top: var(--wp-admin--admin-bar--height);
 }
 
+body.admin-bar {
+  padding-top: var(--wp-admin--admin-bar--height);
+}
+
 #wpadminbar * {
   height: auto;
   width: auto;

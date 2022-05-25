@@ -18,6 +18,14 @@ export default function AdminMenuBar({
     getItems();
   }, []);
 
+  useEffect(() => {
+    if (data) {
+      document?.body.classList.add('admin-bar');
+    } else {
+      document?.body.classList.remove('admin-bar');
+    }
+  }, [data]);
+
   if (!data) {
     return null;
   }
