@@ -36,11 +36,11 @@ export default function Adminbar({ adminBarMenuItems }) {
 
 
   // organized data into a hierarchy
-  const convertToHierarchy = async (
+  const convertToHierarchy = (
     menuItems = [],
     { idKey = 'id', parentKey = 'parent', childrenKey = 'children' } = {}
   ) => {
-    const tree = await [];
+    const tree = [];
     const childrenOf = {};
     
     menuItems.forEach((item) => {
@@ -58,8 +58,9 @@ export default function Adminbar({ adminBarMenuItems }) {
     return tree
   }
   let hierarchy = convertToHierarchy(menuItems)
-  console.log(hierarchy)
-  
+
+  console.log(graphQL)
+
   return (
     <div id="wpadminbar" className="nojq">
       <div className="quicklinks" id="wp-toolbar" role="navigation" aria-label="Toolbar">
@@ -69,7 +70,7 @@ export default function Adminbar({ adminBarMenuItems }) {
           <Site siteName={siteName} siteURL={siteURL} />
           {/* <Updates updateCount={updateCount} /> */}
           <Comments commentsCount={commentCount} editComments={editComments}/>
-          <NewContent newPost={newPost}/>
+          <NewContent newPost={newPost} siteURL={siteURL}/>
           <EditContent editPost={editPost}/>
           <GraphQl graphQL={ graphQL } />
         </ul>
