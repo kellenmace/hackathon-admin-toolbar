@@ -26,7 +26,10 @@ export function PageComponent({ page }) {
         imageUrl={page?.featuredImage?.node?.sourceUrl?.()}
       />
 
-      <AdminMenuBar rootQuery="page" args={{ id: page.uri, idType: 'URI' }} />
+      <AdminMenuBar
+        rootQuery="page"
+        args={{ id: page.databaseId, idType: 'DATABASE_ID' }}
+      />
 
       <Header />
 

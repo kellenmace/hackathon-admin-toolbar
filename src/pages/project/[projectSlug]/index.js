@@ -25,7 +25,7 @@ export function ProjectComponent({ project }) {
 
       <AdminMenuBar
         rootQuery="project"
-        args={{ id: project.uri, idType: 'URI' }}
+        args={{ id: project.databaseId, idType: 'DATABASE_ID' }}
       />
 
       <Header />

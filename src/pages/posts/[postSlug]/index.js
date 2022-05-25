@@ -27,7 +27,10 @@ export function PostComponent({ post }) {
         imageUrl={post?.featuredImage?.node?.sourceUrl?.()}
       />
 
-      <AdminMenuBar rootQuery="post" args={{ id: post.uri, idType: 'URI' }} />
+      <AdminMenuBar
+        rootQuery="post"
+        args={{ id: post.databaseId, idType: 'DATABASE_ID' }}
+      />
 
       <Header />
 

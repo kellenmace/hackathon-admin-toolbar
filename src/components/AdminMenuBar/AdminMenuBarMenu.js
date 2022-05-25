@@ -23,6 +23,7 @@ export default function AdminMenuBar({
   }
 
   const hierarchicalItems = flatListToHierarchical(data);
+
   return (
     <div id="wpadminbar">
       <div
@@ -35,9 +36,10 @@ export default function AdminMenuBar({
           {hierarchicalItems
             .filter((item) => !item.group)
             .map((item) => {
-              const hasPopup = item.children?.length;
+              const hasPopup = !!item.children?.length;
               return (
                 <li
+                  key={item.id}
                   id={`wp-admin-bar-${item.id}`}
                   className={`${hasPopup ? `menupop` : ''} ${
                     hoveredItem === item.id ? 'hover' : ''
@@ -51,8 +53,7 @@ export default function AdminMenuBar({
                 >
                   <a
                     className="ab-item"
-                    aria-haspopup={hasPopup ? 'true' : 'false'}
-                    href={item.href}
+                    href={item.href.replace('&amp;', '&')}
                     dangerouslySetInnerHTML={{ __html: item.title }}
                   />
                   {hasPopup ? <Submenu item={item} /> : null}
@@ -60,13 +61,56 @@ export default function AdminMenuBar({
               );
             })}
         </ul>
+        {hierarchicalItems
+          .filter((item) => item.group)
+          .map((item) => {
+            return (
+              <ul
+                key={item.id}
+                id={`wp-admin-bar-${item.id}`}
+                className={`ab-${item.id} ab-top-menu`}
+              >
+                {item.children
+                  .filter((child) => child.id !== 'search')
+                  .map((child) => {
+                    const hasPopup = !!child.children?.length;
+                    return (
+                      <li
+                        key={child.id}
+                        id={`wp-admin-bar-${child.id}`}
+                        className={`${hasPopup ? 'menupop' : ''} ${
+                          child.id === 'my-account' ? 'with-avatar' : ''
+                        } ${hoveredItem === child.id ? 'hover' : ''}`}
+                        onMouseEnter={() => {
+                          setHoveredItem(child.id);
+                        }}
+                        onMouseLeave={() => {
+                          setHoveredItem(null);
+                        }}
+                      >
+                        <a
+                          className="ab-item"
+                          href={child.href}
+                          dangerouslySetInnerHTML={{ __html: child.title }}
+                        />
+                        {hasPopup
+                          ? child.children.map((grandchild) => {
+                              return <Submenu item={grandchild} />;
+                            })
+                          : null}
+                      </li>
+                    );
+                  })}
+              </ul>
+            );
+          })}
       </div>
     </div>
   );
 }
 
 function Submenu({ item }) {
-  const hasPopup = item.children?.length;
+  const hasPopup = !!item.children?.length;
 
   if (!hasPopup) {
     return null;
@@ -74,17 +118,17 @@ function Submenu({ item }) {
 
   return (
     <div className="ab-sub-wrapper">
-      <ul id={`wp-admin-bar-${item.id}-default`} className="ab-submenu">
+      <ul id={`wp-admin-bar-${item.id}`} className="ab-submenu">
         {item.children.map((child) => {
           return (
             <li
+              key={child.id}
               id={`wp-admin-bar-${child.id}`}
               className={hasPopup ? `menupop` : ''}
             >
               <a
                 className="ab-item"
-                href={child.href}
-                aria-haspopup={hasPopup ? 'true' : 'false'}
+                href={child.href.replace('&amp;', '&')}
                 dangerouslySetInnerHTML={{
                   __html: child.title,
                 }}

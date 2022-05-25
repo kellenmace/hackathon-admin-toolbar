@@ -1,4 +1,5 @@
 import { client } from 'client';
+
 import AdminMenuBarMenu from './AdminMenuBarMenu';
 
 export default function AdminMenuBar({ rootQuery = 'posts', args }) {
