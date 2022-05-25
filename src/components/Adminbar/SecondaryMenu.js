@@ -26,9 +26,9 @@ export default function SecondaryMenu({ profileURL, userName }) {
             <div className="ab-sub-wrapper">
               <ul id="wp-admin-bar-user-actions" className="ab-submenu">
                 <li id="wp-admin-bar-user-info">
-                  <a className="ab-item" tabIndex="-1" href="http://atlasblueprintblog.local/wp-admin/profile.php">
+                  <a className="ab-item" tabIndex="-1" href={profileURL}>
                     <img alt src="http://2.gravatar.com/avatar/213a7a0…?s=64&d=mm&r=g" srcset="http://2.gravatar.com/avatar/213a7a0…?s=128&d=mm&r=g 2x" className="avatar avatar-64 photo" height="64" width="64" loading="lazy"></img>
-                    <span className="display-name">digallardox</span>
+                    <span className="display-name">Account</span>
                   </a>
                 </li>
                 <li id="wp-admin-bar-edit-profile">

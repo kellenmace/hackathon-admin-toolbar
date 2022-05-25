@@ -64,11 +64,9 @@ export default function Adminbar({ adminBarMenuItems }) {
   return (
     <div id="wpadminbar" className="nojq">
       <div className="quicklinks" id="wp-toolbar" role="navigation" aria-label="Toolbar">
-        {/* <PrimaryMenu primaryProps={ hierarchy }/> */}
         <ul id="wp-admin-bar-root-default" className="ab-top-menu">
           <WPlogo />
           <Site siteName={siteName} siteURL={siteURL} />
-          {/* <Updates updateCount={updateCount} /> */}
           <Comments commentsCount={commentCount} editComments={editComments}/>
           <NewContent newPost={newPost} siteURL={siteURL}/>
           <EditContent editPost={editPost}/>
