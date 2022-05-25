@@ -469,13 +469,13 @@ export interface CreateCommentInput {
   authorUrl?: InputMaybe<Scalars['String']>;
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']>;
-  /** The ID of the post object the comment belongs to. */
+  /** The database ID of the post object the comment belongs to. */
   commentOn?: InputMaybe<Scalars['Int']>;
   /** Content of the comment. */
   content?: InputMaybe<Scalars['String']>;
   /** The date of the object. Preferable to enter as year/month/day ( e.g. 01/31/2017 ) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
   date?: InputMaybe<Scalars['String']>;
-  /** Parent comment of current comment. */
+  /** Parent comment ID of current comment. */
   parent?: InputMaybe<Scalars['ID']>;
   /** Type of comment. */
   type?: InputMaybe<Scalars['String']>;
@@ -503,7 +503,7 @@ export interface CreateMediaItemInput {
   filePath?: InputMaybe<Scalars['String']>;
   /** The file type of the mediaItem */
   fileType?: InputMaybe<MimeTypeEnum>;
-  /** The WordPress post ID or the graphQL postId of the parent object */
+  /** The ID of the parent object */
   parentId?: InputMaybe<Scalars['ID']>;
   /** The ping status for the mediaItem */
   pingStatus?: InputMaybe<Scalars['String']>;
@@ -599,16 +599,22 @@ export interface CreateProjectInput {
   authorId?: InputMaybe<Scalars['ID']>;
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']>;
+  /** Project Content Area */
+  contentArea?: InputMaybe<Scalars['String']>;
   /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
   date?: InputMaybe<Scalars['String']>;
   /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
   menuOrder?: InputMaybe<Scalars['Int']>;
   /** The password used to protect the content of the object */
   password?: InputMaybe<Scalars['String']>;
+  /** Project Title */
+  projectTitle: Scalars['String'];
   /** The slug of the object */
   slug?: InputMaybe<Scalars['String']>;
   /** The status of the object */
   status?: InputMaybe<PostStatusEnum>;
+  /** Project Summary */
+  summary?: InputMaybe<Scalars['String']>;
   /** The title of the object */
   title?: InputMaybe<Scalars['String']>;
 }
@@ -643,6 +649,8 @@ export interface CreateTestimonialInput {
   slug?: InputMaybe<Scalars['String']>;
   /** The status of the object */
   status?: InputMaybe<PostStatusEnum>;
+  testimonialAuthor?: InputMaybe<Scalars['String']>;
+  testimonialContent?: InputMaybe<Scalars['String']>;
   /** The title of the object */
   title?: InputMaybe<Scalars['String']>;
 }
@@ -1366,6 +1374,23 @@ export interface PageToRevisionConnectionWhereArgs {
   title?: InputMaybe<Scalars['String']>;
 }
 
+/** The status of the WordPress plugin. */
+export type PluginStatusEnum =
+  /** The plugin is currently active. */
+  | 'ACTIVE'
+  /** The plugin is a drop-in plugin. */
+  | 'DROP_IN'
+  /** The plugin is currently inactive. */
+  | 'INACTIVE'
+  /** The plugin is a must-use plugin. */
+  | 'MUST_USE'
+  /** The plugin is technically active but was paused while loading. */
+  | 'PAUSED'
+  /** The plugin was active recently. */
+  | 'RECENTLY_ACTIVE'
+  /** The plugin has an upgrade available. */
+  | 'UPGRADE';
+
 /** Set relationships between the post to categories */
 export interface PostCategoriesInput {
   /** If true, this will append the category to existing related categories. If false, this will replace existing relationships. Default true. */
@@ -1518,9 +1543,9 @@ export type PostIdType =
 
 /** The format of post field data. */
 export type PostObjectFieldFormatEnum =
-  /** Provide the field value directly from database */
+  /** Provide the field value directly from database. Null on unauthenticated requests. */
   | 'RAW'
-  /** Apply the default WordPress rendering */
+  /** Provide the field value as rendered by WordPress. Default. */
   | 'RENDERED';
 
 /** The column to use when filtering by date */
@@ -2310,6 +2335,16 @@ export interface RootQueryToPageConnectionWhereArgs {
   title?: InputMaybe<Scalars['String']>;
 }
 
+/** Arguments for filtering the RootQueryToPluginConnection connection */
+export interface RootQueryToPluginConnectionWhereArgs {
+  /** Show plugin based on a keyword search. */
+  search?: InputMaybe<Scalars['String']>;
+  /** Retrieve plugins where plugin status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PluginStatusEnum>>>;
+  /** Show plugins with a specific status. */
+  status?: InputMaybe<PluginStatusEnum>;
+}
+
 /** Arguments for filtering the RootQueryToPostConnection connection */
 export interface RootQueryToPostConnectionWhereArgs {
   /** The user that's connected as the author of the object. Use the userId for the author object. */
@@ -2852,7 +2887,7 @@ export interface UpdateCommentInput {
   authorUrl?: InputMaybe<Scalars['String']>;
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']>;
-  /** The ID of the post object the comment belongs to. */
+  /** The database ID of the post object the comment belongs to. */
   commentOn?: InputMaybe<Scalars['Int']>;
   /** Content of the comment. */
   content?: InputMaybe<Scalars['String']>;
@@ -2860,7 +2895,7 @@ export interface UpdateCommentInput {
   date?: InputMaybe<Scalars['String']>;
   /** The ID of the comment being updated. */
   id: Scalars['ID'];
-  /** Parent comment of current comment. */
+  /** Parent comment ID of current comment. */
   parent?: InputMaybe<Scalars['ID']>;
   /** Type of comment. */
   type?: InputMaybe<Scalars['String']>;
@@ -2890,7 +2925,7 @@ export interface UpdateMediaItemInput {
   fileType?: InputMaybe<MimeTypeEnum>;
   /** The ID of the mediaItem object */
   id: Scalars['ID'];
-  /** The WordPress post ID or the graphQL postId of the parent object */
+  /** The ID of the parent object */
   parentId?: InputMaybe<Scalars['ID']>;
   /** The ping status for the mediaItem */
   pingStatus?: InputMaybe<Scalars['String']>;
@@ -2992,6 +3027,8 @@ export interface UpdateProjectInput {
   authorId?: InputMaybe<Scalars['ID']>;
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']>;
+  /** Project Content Area */
+  contentArea?: InputMaybe<Scalars['String']>;
   /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
   date?: InputMaybe<Scalars['String']>;
   /** The ID of the project object */
@@ -3000,10 +3037,14 @@ export interface UpdateProjectInput {
   menuOrder?: InputMaybe<Scalars['Int']>;
   /** The password used to protect the content of the object */
   password?: InputMaybe<Scalars['String']>;
+  /** Project Title */
+  projectTitle?: InputMaybe<Scalars['String']>;
   /** The slug of the object */
   slug?: InputMaybe<Scalars['String']>;
   /** The status of the object */
   status?: InputMaybe<PostStatusEnum>;
+  /** Project Summary */
+  summary?: InputMaybe<Scalars['String']>;
   /** The title of the object */
   title?: InputMaybe<Scalars['String']>;
 }
@@ -3081,6 +3122,8 @@ export interface UpdateTestimonialInput {
   slug?: InputMaybe<Scalars['String']>;
   /** The status of the object */
   status?: InputMaybe<PostStatusEnum>;
+  testimonialAuthor?: InputMaybe<Scalars['String']>;
+  testimonialContent?: InputMaybe<Scalars['String']>;
   /** The title of the object */
   title?: InputMaybe<Scalars['String']>;
 }
@@ -3547,6 +3590,20 @@ export type UsersConnectionSearchColumnEnum =
 
 export declare const scalarsEnumsHash: import('gqty').ScalarsEnumsHash;
 export declare const generatedSchema: {
+  AdminBarMenuItem: {
+    __typename: { __type: 'String!' };
+    group: { __type: 'Boolean' };
+    href: { __type: 'String' };
+    id: { __type: 'String' };
+    meta: { __type: 'AdminBarMenuItemMeta' };
+    parent: { __type: 'String' };
+    title: { __type: 'String' };
+  };
+  AdminBarMenuItemMeta: {
+    __typename: { __type: 'String!' };
+    class: { __type: 'String' };
+    tabindex: { __type: 'String' };
+  };
   AtlasContentModelerSettingsSettings: {
     __typename: { __type: 'String!' };
     atlasContentModelerUsageTracking: { __type: 'String' };
@@ -3567,6 +3624,7 @@ export declare const generatedSchema: {
   };
   Category: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     ancestors: {
       __type: 'CategoryToAncestorsCategoryConnection';
       __args: { after: 'String'; before: 'String'; first: 'Int'; last: 'Int' };
@@ -3796,6 +3854,14 @@ export declare const generatedSchema: {
   };
   CommentAuthor: {
     __typename: { __type: 'String!' };
+    avatar: {
+      __type: 'Avatar';
+      __args: {
+        forceDefault: 'Boolean';
+        rating: 'AvatarRatingEnum';
+        size: 'Int';
+      };
+    };
     databaseId: { __type: 'Int!' };
     email: { __type: 'String' };
     id: { __type: 'ID!' };
@@ -3890,6 +3956,7 @@ export declare const generatedSchema: {
   };
   Commenter: {
     __typename: { __type: 'String!' };
+    avatar: { __type: 'Avatar' };
     databaseId: { __type: 'Int!' };
     email: { __type: 'String' };
     id: { __type: 'ID!' };
@@ -3925,6 +3992,7 @@ export declare const generatedSchema: {
   };
   ContentNode: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     conditionalTags: { __type: 'ConditionalTags' };
     contentType: { __type: 'ContentNodeToContentTypeConnectionEdge' };
     contentTypeName: { __type: 'String!' };
@@ -4206,11 +4274,14 @@ export declare const generatedSchema: {
   CreateProjectInput: {
     authorId: { __type: 'ID' };
     clientMutationId: { __type: 'String' };
+    contentArea: { __type: 'String' };
     date: { __type: 'String' };
     menuOrder: { __type: 'Int' };
     password: { __type: 'String' };
+    projectTitle: { __type: 'String!' };
     slug: { __type: 'String' };
     status: { __type: 'PostStatusEnum' };
+    summary: { __type: 'String' };
     title: { __type: 'String' };
   };
   CreateProjectPayload: {
@@ -4238,6 +4309,8 @@ export declare const generatedSchema: {
     password: { __type: 'String' };
     slug: { __type: 'String' };
     status: { __type: 'PostStatusEnum' };
+    testimonialAuthor: { __type: 'String' };
+    testimonialContent: { __type: 'String' };
     title: { __type: 'String' };
   };
   CreateTestimonialPayload: {
@@ -4581,6 +4654,7 @@ export declare const generatedSchema: {
   };
   MediaItem: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     altText: { __type: 'String' };
     ancestors: {
       __type: 'HierarchicalContentNodeToContentNodeAncestorsConnection';
@@ -4796,6 +4870,7 @@ export declare const generatedSchema: {
     path: { __type: 'String' };
     target: { __type: 'String' };
     title: { __type: 'String' };
+    uri: { __type: 'String' };
     url: { __type: 'String' };
   };
   MenuItemLinkable: {
@@ -4891,6 +4966,7 @@ export declare const generatedSchema: {
   };
   NodeWithFeaturedImage: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     conditionalTags: { __type: 'ConditionalTags' };
     contentType: { __type: 'ContentNodeToContentTypeConnectionEdge' };
     contentTypeName: { __type: 'String!' };
@@ -4971,6 +5047,7 @@ export declare const generatedSchema: {
   };
   Page: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     ancestors: {
       __type: 'HierarchicalContentNodeToContentNodeAncestorsConnection';
       __args: {
@@ -5169,6 +5246,7 @@ export declare const generatedSchema: {
   };
   Post: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     author: { __type: 'NodeWithAuthorToUserConnectionEdge' };
     authorDatabaseId: { __type: 'Int' };
     authorId: { __type: 'ID' };
@@ -5304,6 +5382,7 @@ export declare const generatedSchema: {
   };
   PostFormat: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     conditionalTags: { __type: 'ConditionalTags' };
     contentNodes: {
       __type: 'PostFormatToContentNodeConnection';
@@ -5707,6 +5786,7 @@ export declare const generatedSchema: {
   };
   Project: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     author: { __type: 'NodeWithAuthorToUserConnectionEdge' };
     authorDatabaseId: { __type: 'Int' };
     authorId: { __type: 'ID' };
@@ -5983,6 +6063,7 @@ export declare const generatedSchema: {
   };
   RootQueryToMediaItemConnection: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     edges: { __type: '[RootQueryToMediaItemConnectionEdge]' };
     nodes: { __type: '[MediaItem]' };
     pageInfo: { __type: 'WPPageInfo' };
@@ -6050,6 +6131,7 @@ export declare const generatedSchema: {
   };
   RootQueryToPageConnection: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     edges: { __type: '[RootQueryToPageConnectionEdge]' };
     nodes: { __type: '[Page]' };
     pageInfo: { __type: 'WPPageInfo' };
@@ -6093,8 +6175,14 @@ export declare const generatedSchema: {
     cursor: { __type: 'String' };
     node: { __type: 'Plugin' };
   };
+  RootQueryToPluginConnectionWhereArgs: {
+    search: { __type: 'String' };
+    stati: { __type: '[PluginStatusEnum]' };
+    status: { __type: 'PluginStatusEnum' };
+  };
   RootQueryToPostConnection: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     edges: { __type: '[RootQueryToPostConnectionEdge]' };
     nodes: { __type: '[Post]' };
     pageInfo: { __type: 'WPPageInfo' };
@@ -6172,6 +6260,7 @@ export declare const generatedSchema: {
   };
   RootQueryToProjectConnection: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     edges: { __type: '[RootQueryToProjectConnectionEdge]' };
     nodes: { __type: '[Project]' };
     pageInfo: { __type: 'WPPageInfo' };
@@ -6284,6 +6373,7 @@ export declare const generatedSchema: {
   };
   RootQueryToTestimonialConnection: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     edges: { __type: '[RootQueryToTestimonialConnectionEdge]' };
     nodes: { __type: '[Testimonial]' };
     pageInfo: { __type: 'WPPageInfo' };
@@ -6329,6 +6419,7 @@ export declare const generatedSchema: {
   };
   RootQueryToUserConnection: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     edges: { __type: '[RootQueryToUserConnectionEdge]' };
     nodes: { __type: '[User]' };
     pageInfo: { __type: 'WPPageInfo' };
@@ -6398,6 +6489,7 @@ export declare const generatedSchema: {
   };
   Tag: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     conditionalTags: { __type: 'ConditionalTags' };
     contentNodes: {
       __type: 'TagToContentNodeConnection';
@@ -6579,6 +6671,7 @@ export declare const generatedSchema: {
   };
   TermNode: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     conditionalTags: { __type: 'ConditionalTags' };
     count: { __type: 'Int' };
     databaseId: { __type: 'Int!' };
@@ -6629,6 +6722,7 @@ export declare const generatedSchema: {
   };
   Testimonial: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     author: { __type: 'NodeWithAuthorToUserConnectionEdge' };
     authorDatabaseId: { __type: 'Int' };
     authorId: { __type: 'ID' };
@@ -6819,12 +6913,15 @@ export declare const generatedSchema: {
   UpdateProjectInput: {
     authorId: { __type: 'ID' };
     clientMutationId: { __type: 'String' };
+    contentArea: { __type: 'String' };
     date: { __type: 'String' };
     id: { __type: 'ID!' };
     menuOrder: { __type: 'Int' };
     password: { __type: 'String' };
+    projectTitle: { __type: 'String' };
     slug: { __type: 'String' };
     status: { __type: 'PostStatusEnum' };
+    summary: { __type: 'String' };
     title: { __type: 'String' };
   };
   UpdateProjectPayload: {
@@ -6887,6 +6984,8 @@ export declare const generatedSchema: {
     password: { __type: 'String' };
     slug: { __type: 'String' };
     status: { __type: 'PostStatusEnum' };
+    testimonialAuthor: { __type: 'String' };
+    testimonialContent: { __type: 'String' };
     title: { __type: 'String' };
   };
   UpdateTestimonialPayload: {
@@ -6921,6 +7020,7 @@ export declare const generatedSchema: {
   };
   User: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     avatar: {
       __type: 'Avatar';
       __args: {
@@ -7627,7 +7727,13 @@ export declare const generatedSchema: {
     plugin: { __type: 'Plugin'; __args: { id: 'ID!' } };
     plugins: {
       __type: 'RootQueryToPluginConnection';
-      __args: { after: 'String'; before: 'String'; first: 'Int'; last: 'Int' };
+      __args: {
+        after: 'String';
+        before: 'String';
+        first: 'Int';
+        last: 'Int';
+        where: 'RootQueryToPluginConnectionWhereArgs';
+      };
     };
     post: {
       __type: 'Post';
@@ -7860,6 +7966,52 @@ export declare const generatedSchema: {
 };
 
 /**
+ * A single node from the admin bar menu
+ */
+export interface AdminBarMenuItem {
+  __typename?: 'AdminBarMenuItem';
+  /**
+   * Determines if a link is for grouping other links
+   */
+  group?: Maybe<ScalarsEnums['Boolean']>;
+  /**
+   * The absolute URL for the given menu item
+   */
+  href?: Maybe<ScalarsEnums['String']>;
+  /**
+   * The slug for a given admin menu item
+   */
+  id?: Maybe<ScalarsEnums['String']>;
+  /**
+   * Additional link information including class and tabindex
+   */
+  meta?: Maybe<AdminBarMenuItemMeta>;
+  /**
+   * The slug of the parent menu item or null if a root item
+   */
+  parent?: Maybe<ScalarsEnums['String']>;
+  /**
+   * The link text for a given admin menu item
+   */
+  title?: Maybe<ScalarsEnums['String']>;
+}
+
+/**
+ * A single node from the admin bar menu
+ */
+export interface AdminBarMenuItemMeta {
+  __typename?: 'AdminBarMenuItemMeta';
+  /**
+   * The class(es) for a given admin menu item
+   */
+  class?: Maybe<ScalarsEnums['String']>;
+  /**
+   * The tabindex for a given admin menu item
+   */
+  tabindex?: Maybe<ScalarsEnums['String']>;
+}
+
+/**
  * The atlasContentModelerSettings setting type
  */
 export interface AtlasContentModelerSettingsSettings {
@@ -7926,6 +8078,7 @@ export interface Avatar {
  */
 export interface Category {
   __typename?: 'Category';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * The ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root).
    */
@@ -8423,6 +8576,24 @@ export interface Comment {
 export interface CommentAuthor {
   __typename?: 'CommentAuthor';
   /**
+   * Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument.
+   */
+  avatar: (args?: {
+    /**
+     * Whether to always show the default image, never the Gravatar. Default false
+     */
+    forceDefault?: Maybe<Scalars['Boolean']>;
+    /**
+     * The rating level of the avatar.
+     */
+    rating?: Maybe<AvatarRatingEnum>;
+    /**
+     * The size attribute of the avatar field can be used to fetch avatars of different sizes. The value corresponds to the dimension in pixels to fetch. The default is 96 pixels.
+     * @defaultValue `96`
+     */
+    size?: Maybe<Scalars['Int']>;
+  }) => Maybe<Avatar>;
+  /**
    * Identifies the primary key from the database.
    */
   databaseId: ScalarsEnums['Int'];
@@ -8520,6 +8691,10 @@ export interface CommentToParentCommentConnectionEdge {
  */
 export interface Commenter {
   __typename?: 'CommentAuthor' | 'User';
+  /**
+   * Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument.
+   */
+  avatar?: Maybe<Avatar>;
   /**
    * Identifies the primary key from the database.
    */
@@ -8669,6 +8844,7 @@ export interface ConditionalTags {
  */
 export interface ContentNode {
   __typename?: 'MediaItem' | 'Page' | 'Post' | 'Project' | 'Testimonial';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * @deprecated Deprecated in favor of using Next.js pages
    */
@@ -9954,6 +10130,7 @@ export interface MediaDetails {
  */
 export interface MediaItem {
   __typename?: 'MediaItem';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Alternative text to display when resource is not displayed
    */
@@ -10588,6 +10765,10 @@ export interface MenuItem {
    */
   title?: Maybe<ScalarsEnums['String']>;
   /**
+   * The uri of the resource the menu item links to
+   */
+  uri?: Maybe<ScalarsEnums['String']>;
+  /**
    * URL or destination of the menu item.
    */
   url?: Maybe<ScalarsEnums['String']>;
@@ -10829,6 +11010,7 @@ export interface NodeWithExcerpt {
  */
 export interface NodeWithFeaturedImage {
   __typename?: 'Page' | 'Post' | 'Project';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * @deprecated Deprecated in favor of using Next.js pages
    */
@@ -11091,6 +11273,7 @@ export interface NodeWithTrackbacks {
  */
 export interface Page {
   __typename?: 'Page';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root).
    */
@@ -11558,6 +11741,7 @@ export interface Plugin {
  */
 export interface Post {
   __typename?: 'Post';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Connection between the NodeWithAuthor type and the User type
    */
@@ -11950,6 +12134,7 @@ export interface Post {
  */
 export interface PostFormat {
   __typename?: 'PostFormat';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * @deprecated Deprecated in favor of using Next.js pages
    */
@@ -12520,6 +12705,7 @@ export interface PostTypeLabelDetails {
  */
 export interface Project {
   __typename?: 'Project';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Connection between the NodeWithAuthor type and the User type
    */
@@ -13037,6 +13223,7 @@ export interface RootQueryToEnqueuedStylesheetConnectionEdge {
  */
 export interface RootQueryToMediaItemConnection {
   __typename?: 'RootQueryToMediaItemConnection';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Edges for the RootQueryToMediaItemConnection connection
    */
@@ -13139,6 +13326,7 @@ export interface RootQueryToMenuItemConnectionEdge {
  */
 export interface RootQueryToPageConnection {
   __typename?: 'RootQueryToPageConnection';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Edges for the RootQueryToPageConnection connection
    */
@@ -13207,6 +13395,7 @@ export interface RootQueryToPluginConnectionEdge {
  */
 export interface RootQueryToPostConnection {
   __typename?: 'RootQueryToPostConnection';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Edges for the RootQueryToPostConnection connection
    */
@@ -13275,6 +13464,7 @@ export interface RootQueryToPostFormatConnectionEdge {
  */
 export interface RootQueryToProjectConnection {
   __typename?: 'RootQueryToProjectConnection';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Edges for the RootQueryToProjectConnection connection
    */
@@ -13411,6 +13601,7 @@ export interface RootQueryToTermNodeConnectionEdge {
  */
 export interface RootQueryToTestimonialConnection {
   __typename?: 'RootQueryToTestimonialConnection';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Edges for the RootQueryToTestimonialConnection connection
    */
@@ -13479,6 +13670,7 @@ export interface RootQueryToThemeConnectionEdge {
  */
 export interface RootQueryToUserConnection {
   __typename?: 'RootQueryToUserConnection';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Edges for the RootQueryToUserConnection connection
    */
@@ -13635,6 +13827,7 @@ export interface Settings {
  */
 export interface Tag {
   __typename?: 'Tag';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * @deprecated Deprecated in favor of using Next.js pages
    */
@@ -14065,6 +14258,7 @@ export interface Template_SinglePostNoSeparators {
  */
 export interface TermNode {
   __typename?: 'Category' | 'PostFormat' | 'Tag';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * @deprecated Deprecated in favor of using Next.js pages
    */
@@ -14244,6 +14438,7 @@ export interface TermNodeToEnqueuedStylesheetConnectionEdge {
  */
 export interface Testimonial {
   __typename?: 'Testimonial';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Connection between the NodeWithAuthor type and the User type
    */
@@ -14641,7 +14836,7 @@ export interface UpdateSettingsPayload {
    */
   allSettings?: Maybe<Settings>;
   /**
-   * Update the atlasContentModelerSettings setting.
+   * Update the AtlasContentModelerSettingsSettings setting.
    */
   atlasContentModelerSettingsSettings?: Maybe<AtlasContentModelerSettingsSettings>;
   /**
@@ -14649,19 +14844,19 @@ export interface UpdateSettingsPayload {
    */
   clientMutationId?: Maybe<ScalarsEnums['String']>;
   /**
-   * Update the discussion setting.
+   * Update the DiscussionSettings setting.
    */
   discussionSettings?: Maybe<DiscussionSettings>;
   /**
-   * Update the general setting.
+   * Update the GeneralSettings setting.
    */
   generalSettings?: Maybe<GeneralSettings>;
   /**
-   * Update the reading setting.
+   * Update the ReadingSettings setting.
    */
   readingSettings?: Maybe<ReadingSettings>;
   /**
-   * Update the writing setting.
+   * Update the WritingSettings setting.
    */
   writingSettings?: Maybe<WritingSettings>;
 }
@@ -14716,6 +14911,7 @@ export interface UpdateUserPayload {
  */
 export interface User {
   __typename?: 'User';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument.
    */
@@ -15683,6 +15879,7 @@ export interface Query {
     before?: Maybe<Scalars['String']>;
     first?: Maybe<Scalars['Int']>;
     last?: Maybe<Scalars['Int']>;
+    where?: Maybe<RootQueryToPluginConnectionWhereArgs>;
   }) => Maybe<RootQueryToPluginConnection>;
   post: (args: {
     asPreview?: Maybe<Scalars['Boolean']>;
@@ -15833,6 +16030,8 @@ export interface Subscription {
 }
 
 export interface SchemaObjectTypes {
+  AdminBarMenuItem: AdminBarMenuItem;
+  AdminBarMenuItemMeta: AdminBarMenuItemMeta;
   AtlasContentModelerSettingsSettings: AtlasContentModelerSettingsSettings;
   Avatar: Avatar;
   Category: Category;
@@ -16054,6 +16253,8 @@ export interface SchemaObjectTypes {
   WritingSettings: WritingSettings;
 }
 export type SchemaObjectTypesNames =
+  | 'AdminBarMenuItem'
+  | 'AdminBarMenuItemMeta'
   | 'AtlasContentModelerSettingsSettings'
   | 'Avatar'
   | 'Category'
@@ -16472,6 +16673,7 @@ export interface ScalarsEnums extends MakeNullable<Scalars> {
   MimeTypeEnum: MimeTypeEnum | undefined;
   OrderEnum: OrderEnum | undefined;
   PageIdType: PageIdType | undefined;
+  PluginStatusEnum: PluginStatusEnum | undefined;
   PostFormatIdType: PostFormatIdType | undefined;
   PostIdType: PostIdType | undefined;
   PostObjectFieldFormatEnum: PostObjectFieldFormatEnum | undefined;

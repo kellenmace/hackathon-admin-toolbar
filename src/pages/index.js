@@ -16,6 +16,7 @@ import {
 } from 'components';
 import styles from 'styles/pages/_Home.module.scss';
 import { pageTitle } from 'utils';
+import AdminMenuBar from 'components/AdminMenuBar/AdminMenuBar';
 
 const postsPerPage = 3;
 
@@ -41,6 +42,8 @@ export default function Page() {
         title={pageTitle(generalSettings)}
         imageUrl={mainBanner?.sourceUrl}
       />
+
+      <AdminMenuBar />
 
       <Header />
 
