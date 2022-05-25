@@ -12,6 +12,7 @@ import {
 } from 'components';
 import { pageTitle } from 'utils';
 import useNodePagination from 'hooks/useNodePagination';
+import AdminMenuBar from 'components/AdminMenuBar/AdminMenuBar';
 
 /**
  * Prepass fields for post nodes. This lists all the pieces of data we need
@@ -48,6 +49,8 @@ export default function Page() {
   return (
     <>
       <SEO title={pageTitle(generalSettings)} />
+
+      <AdminMenuBar rootQuery="posts" args={{ first: 1 }} />
 
       <Header />
 

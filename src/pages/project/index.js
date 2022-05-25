@@ -12,7 +12,7 @@ import {
 import { getNextStaticProps } from '@faustjs/next';
 import { pageTitle } from 'utils';
 import useNodePagination from 'hooks/useNodePagination';
-import AdminMenuBar from 'components/AdminMenuBar/AdminMenuBarMenu';
+import AdminMenuBar from 'components/AdminMenuBar/AdminMenuBar';
 
 /**
  * Prepass fields for project nodes. This lists all the pieces of data we need
