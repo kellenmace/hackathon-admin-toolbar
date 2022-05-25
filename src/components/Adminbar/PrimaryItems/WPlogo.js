@@ -8,7 +8,7 @@ export default function WPlogo() {
     onMouseEnter={() => setClss("menupop hover")}
     onMouseLeave={() => setClss("menupop")}
     >
-      <a className="ab-item" aria-haspopup="true" href="">
+      <a className="ab-item" href="">
         <span className="ab-icon" aria-hidden="true"></span>
         <span className="screen-reader-text">About WordPress</span>
       </a>

@@ -14,7 +14,7 @@ export default function NewContent({ newPost, siteURL }) {
     onMouseEnter={() => setClss("menupop hover")}
     onMouseLeave={() => setClss("menupop")}
     >
-      <a className="ab-item" aria-haspopup="true" href={newPost}>
+      <a className="ab-item"  href={newPost}>
         <span className="ab-icon" aria-hidden="true"></span>
         {/* ::before */}
         <i className="bi bi-plus-lg" id="icon"></i>
