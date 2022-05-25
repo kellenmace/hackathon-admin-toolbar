@@ -95,7 +95,12 @@ export default function AdminMenuBar({
                         />
                         {hasPopup
                           ? child.children.map((grandchild) => {
-                              return <Submenu item={grandchild} />;
+                              return (
+                                <Submenu
+                                  key={grandchild.id}
+                                  item={grandchild}
+                                />
+                              );
                             })
                           : null}
                       </li>
