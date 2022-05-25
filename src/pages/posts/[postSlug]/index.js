@@ -18,12 +18,12 @@ export function PostComponent({ post }) {
 
   const generalSettings = useQuery().generalSettings;
 
-   if (!isAuthenticated) {
-     console.log("You are not authenticated")
-     return <h2>Not authenticated</h2>
+  if (!isAuthenticated) {
+    console.log("You are not authenticated")
+    return <h2>Not authenticated</h2>
   } 
   
-  console.log({isAuthenticated})
+  console.log( post.databaseId )
   
   return (
     <>
@@ -36,11 +36,8 @@ export function PostComponent({ post }) {
         imageUrl={post?.featuredImage?.node?.sourceUrl?.()}
       />
 
-      {isAuthenticated ? <Adminbar adminBarMenuItems={post.adminBarMenuItems} /> : null}
-      
+      <Adminbar adminBarMenuItems={post.adminBarMenuItems} />
       <Header />
-    
-
       <Main>
         <EntryHeader
           title={post?.title()}

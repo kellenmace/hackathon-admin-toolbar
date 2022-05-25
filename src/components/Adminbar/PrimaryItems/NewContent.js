@@ -1,9 +1,14 @@
+import { useState } from "react"
 
+export default function NewContent({ newPost }) {
+  const [clss, setClss] = useState("menupop")
 
-export default function NewContent() {
   return (
-    <li id="wp-admin-bar-new-content" className="menupop">
-      <a className="ab-item" aria-haspopup="true" href="http://atlasblueprintblog.local/wp-admin/post-new.php">
+    <li id="wp-admin-bar-new-content" className={clss}
+    onMouseEnter={() => setClss("menupop hover")}
+    onMouseLeave={() => setClss("menupop")}
+    >
+      <a className="ab-item" aria-haspopup="true" href={newPost}>
         <span className="ab-icon" aria-hidden="true"></span>
         {/* ::before */}
         <span className="ab-label">New</span>

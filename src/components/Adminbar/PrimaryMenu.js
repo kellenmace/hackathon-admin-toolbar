@@ -6,9 +6,7 @@ import NewContent from "./PrimaryItems/NewContent"
 import EditContent from "./PrimaryItems/EditContent"
 import GraphQl from "./PrimaryItems/GraphQL"
 
-export default function PrimaryMenu({primaryProps}) {
-
-  console.log(primaryProps)
+export default function PrimaryMenu({ primaryProps }) {
 
   // return null
   return (
@@ -17,8 +15,8 @@ export default function PrimaryMenu({primaryProps}) {
       <Site siteProps={ primaryProps[1]} />
       <Updates />
       <Comments />
-      <NewContent />
-      <EditContent />
+      <NewContent newContentProps={ primaryProps[4] }/>
+      <EditContent editContentProps={ primaryProps[6] } />
       <GraphQl />
     </ul>
   )

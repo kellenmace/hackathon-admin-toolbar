@@ -1,8 +1,9 @@
 
-export default function EditContent() {
+export default function EditContent({ editPost }) {
+  console.log(editPost)
   return (
     <li id="wp-admin-bar-edit">
-      <a className="ab-item" href="http://atlasblueprintblog.local/wp-admin/post.php?post=1&action=edit">
+      <a className="ab-item" href={editPost}>
         Edit Post
       </a>
     </li>

@@ -1,7 +1,7 @@
+import { useState } from "react"
 
-export default function SecondaryMenu({ secondaryProps }) {
-  
-  console.log(secondaryProps[8].children[1].href)
+export default function SecondaryMenu({ profileURL, userName }) {
+  const [clss, setClss] = useState("menupop with-avatar")
 
   // return null
   return (
@@ -14,11 +14,14 @@ export default function SecondaryMenu({ secondaryProps }) {
           </form>
         </div>
           </li>
-          <li id="wp-admin-bar-my-account" className="menupop with-avatar">   
-          </li>
-          <li id="wp-admin-bar-my-account" className="menupop with-avatar">
-        <a className="ab-item" aria-haspopup="true" href={secondaryProps[8].children[1].href}>
-          <div dangerouslySetInnerHTML={{__html: secondaryProps[8].children[1].title }}></div>
+      <li id="wp-admin-bar-my-account" className={clss}
+      onMouseEnter={() => setClss("menupop hover with-avatar")}
+      onMouseLeave={() => setClss("menupop with-avatar")}
+      >
+        
+        <a className="ab-item" aria-haspopup="true" href={profileURL}>
+          <div dangerouslySetInnerHTML={{ __html: userName }}></div>
+          
             </a>
             <div className="ab-sub-wrapper">
               <ul id="wp-admin-bar-user-actions" className="ab-submenu">

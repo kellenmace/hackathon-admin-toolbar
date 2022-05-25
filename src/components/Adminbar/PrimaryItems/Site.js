@@ -1,11 +1,17 @@
+import { useState } from "react"
 
-export default function Site({ siteProps }) {
-  
+export default function Site({ siteName, siteURL }) {
+  const [clss, setClss] = useState("menupop")
+
   return (
-    <li id="wp-admin-bar-site-name" className="menupop hover">
+    <li id="wp-admin-bar-site-name" className={clss}
+      onMouseEnter={() => setClss("menupop hover")}
+      onMouseLeave={() => setClss("menupop")}
 
-      <a className="ab-item" aria-haspopup="true" href="http://atlasblueprintblog.local/wp-admin/">
-        {siteProps.title}
+    >
+
+      <a className="ab-item" aria-haspopup="true" href={siteURL}>
+        {siteName}
       </a>
 
       <div className="ab-sub-wrapper">
