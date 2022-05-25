@@ -2436,6 +2436,7 @@ export const generatedSchema = {
   },
   RootQueryToContentNodeConnection: {
     __typename: { __type: 'String!' },
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' },
     edges: { __type: '[RootQueryToContentNodeConnectionEdge]' },
     nodes: { __type: '[ContentNode]' },
     pageInfo: { __type: 'WPPageInfo' },

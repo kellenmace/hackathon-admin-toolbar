@@ -5968,6 +5968,7 @@ export declare const generatedSchema: {
   };
   RootQueryToContentNodeConnection: {
     __typename: { __type: 'String!' };
+    adminBarMenuItems: { __type: '[AdminBarMenuItem]' };
     edges: { __type: '[RootQueryToContentNodeConnectionEdge]' };
     nodes: { __type: '[ContentNode]' };
     pageInfo: { __type: 'WPPageInfo' };
@@ -13053,6 +13054,7 @@ export interface RootQueryToCommentConnectionEdge {
  */
 export interface RootQueryToContentNodeConnection {
   __typename?: 'RootQueryToContentNodeConnection';
+  adminBarMenuItems?: Maybe<Array<Maybe<AdminBarMenuItem>>>;
   /**
    * Edges for the RootQueryToContentNodeConnection connection
    */

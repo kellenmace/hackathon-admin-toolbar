@@ -10,6 +10,7 @@ import {
   SearchResults,
   SEO,
 } from 'components';
+import AdminMenuBar from 'components/AdminMenuBar/AdminMenuBar';
 import useSearch from 'hooks/useSearch';
 import React from 'react';
 import styles from 'styles/pages/_Search.module.scss';
@@ -31,6 +32,8 @@ export default function Page() {
   return (
     <>
       <SEO title={pageTitle(generalSettings, 'Search')} />
+
+      <AdminMenuBar rootQuery="contentNodes" args={{ first: 1 }} />
 
       <Header />
 
