@@ -13,23 +13,23 @@ export default function WPlogo() {
         <span className="screen-reader-text">About WordPress</span>
       </a>
       <div className="ab-sub-wrapper">
-        <ul id="wp-admin-bar-wp-logo-default" class="ab-submenu">
+        <ul id="wp-admin-bar-wp-logo-default" className="ab-submenu">
           <li id="wp-admin-bar-about">
-            <a class="ab-item" href="http://atlasblueprintblog.local/wp-admin/about.php">About WordPress</a>
+            <a className="ab-item" href="">About WordPress</a>
           </li>
         </ul>
-        <ul id="wp-admin-bar-wp-logo-external" class="ab-sub-secondary ab-submenu">
+        <ul id="wp-admin-bar-wp-logo-external" className="ab-sub-secondary ab-submenu">
           <li id="wp-admin-bar-wporg">
-            <a class="ab-item" href="https://wordpress.org/">WordPress.org</a>
+            <a className="ab-item" href="https://wordpress.org/">WordPress.org</a>
           </li>
           <li id="wp-admin-bar-documentation">
-            <a class="ab-item" href="https://wordpress.org/support/">Documentation</a>
+            <a className="ab-item" href="https://wordpress.org/support/">Documentation</a>
           </li>
           <li id="wp-admin-bar-support-forums">
-            <a class="ab-item" href="https://wordpress.org/support/forums/">Support</a>
+            <a className="ab-item" href="https://wordpress.org/support/forums/">Support</a>
           </li>
           <li id="wp-admin-bar-feedback">
-            <a class="ab-item" href="https://wordpress.org/support/forum/requests-and-feedback">Feedback</a>
+            <a className="ab-item" href="https://wordpress.org/support/forum/requests-and-feedback">Feedback</a>
           </li>
         </ul>
       </div>
