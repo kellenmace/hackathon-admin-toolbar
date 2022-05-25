@@ -24,6 +24,10 @@ export default function AdminMenuBar({
     } else {
       document?.body.classList.remove('admin-bar');
     }
+
+    return () => {
+      document?.body.classList.remove('admin-bar');
+    };
   }, [data]);
 
   if (!data) {
