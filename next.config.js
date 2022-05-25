@@ -11,7 +11,7 @@ const nextConfig = {
     dirs: ['src'],
   },
   images: {
-    domains: [WP_HOST],
+    domains: [WP_HOST, "secure.gravatar.com"],
   },
   i18n: {
     locales: ['en'],

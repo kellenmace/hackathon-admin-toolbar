@@ -10,11 +10,13 @@ const config = {
     endpoint: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/graphql`,
     headers: {},
   },
-  destination: './src/client/index.js',
+  destination: './src/client/index.ts',
   subscriptions: false,
-  javascriptOutput: true,
+  javascriptOutput: false,
 };
 
-console.log(`Using "${config.introspection.endpoint}" to generate schema...`);
+console.log(
+  `Using "${config.introspection.endpoint}" to generate schema...`,
+);
 
 module.exports = config;

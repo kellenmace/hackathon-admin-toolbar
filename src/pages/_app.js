@@ -5,6 +5,7 @@ import 'styles/main.scss';
 import React from 'react';
 import { client } from 'client';
 import ThemeStyles from 'components/ThemeStyles/ThemeStyles';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function MyApp({ Component, pageProps }) {
   return (

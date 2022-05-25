@@ -12,7 +12,6 @@ import {
 } from 'components';
 import { pageTitle } from 'utils';
 import useNodePagination from 'hooks/useNodePagination';
-
 /**
  * Prepass fields for post nodes. This lists all the pieces of data we need
  * for each project node. Running the following through `prepass` ensures that
@@ -48,7 +47,6 @@ export default function Page() {
   return (
     <>
       <SEO title={pageTitle(generalSettings)} />
-
       <Header />
 
       <Main>

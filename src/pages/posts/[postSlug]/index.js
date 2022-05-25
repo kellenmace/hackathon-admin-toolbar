@@ -10,11 +10,21 @@ import {
   TaxonomyTerms,
 } from 'components';
 import { pageTitle } from 'utils';
+import Adminbar from 'components/Adminbar/Adminbar';
 
 export function PostComponent({ post }) {
-  const { useQuery } = client;
+  const { useQuery, useAuth } = client.auth;
+  const { isAuthenticated } = useAuth();
+
   const generalSettings = useQuery().generalSettings;
 
+  if (!isAuthenticated) {
+    console.log("You are not authenticated")
+    return <h2>Not authenticated</h2>
+  } 
+  
+  console.log( post.databaseId )
+  
   return (
     <>
       <SEO
@@ -26,8 +36,8 @@ export function PostComponent({ post }) {
         imageUrl={post?.featuredImage?.node?.sourceUrl?.()}
       />
 
+      <Adminbar adminBarMenuItems={post.adminBarMenuItems} />
       <Header />
-
       <Main>
         <EntryHeader
           title={post?.title()}
@@ -42,14 +52,14 @@ export function PostComponent({ post }) {
           </ContentWrapper>
         </div>
       </Main>
-
       <Footer />
     </>
   );
 }
 
 export default function Page() {
-  const { usePost } = client;
+
+  const { usePost } = client.auth;
   const post = usePost();
 
   return <PostComponent post={post} />;
