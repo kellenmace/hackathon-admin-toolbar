@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from "react"
 
 export default function SecondaryMenu({ profileURL, userName }) {
@@ -19,7 +20,7 @@ export default function SecondaryMenu({ profileURL, userName }) {
       onMouseLeave={() => setClss("menupop with-avatar")}
       >
         
-        <a className="ab-item" aria-haspopup="true" href={profileURL}>
+        <a className="ab-item" href={profileURL}>
           <div dangerouslySetInnerHTML={{ __html: userName }}></div>
           
             </a>
@@ -27,12 +28,12 @@ export default function SecondaryMenu({ profileURL, userName }) {
               <ul id="wp-admin-bar-user-actions" className="ab-submenu">
                 <li id="wp-admin-bar-user-info">
                   <a className="ab-item" tabIndex="-1" href={profileURL}>
-                    <img alt src="http://2.gravatar.com/avatar/213a7a0…?s=64&d=mm&r=g" srcset="http://2.gravatar.com/avatar/213a7a0…?s=128&d=mm&r=g 2x" className="avatar avatar-64 photo" height="64" width="64" loading="lazy"></img>
+                    <img alt="avatar" src="http://2.gravatar.com/avatar/213a7a0…?s=64&d=mm&r=g" srcSet="http://2.gravatar.com/avatar/213a7a0…?s=128&d=mm&r=g 2x" className="avatar avatar-64 photo" height="64" width="64" loading="lazy"></img>
                     <span className="display-name">Account</span>
                   </a>
                 </li>
                 <li id="wp-admin-bar-edit-profile">
-                  <a className="ab-item" href="http://atlasblueprintblog.local/wp-admin/profile.php">Edit Profile</a>
+                  <a className="ab-item" href="https://bphackathonadm.wpengine.com/wp-admin/profile.php">Edit Profile</a>
                 </li>
                 <li id="wp-admin-bar-logout">
                   <a className="ab-item" href="http://atlasblueprintblog.local/wp-login.php?action=logout&_wpnonce=ca92157684">Log Out</a>
