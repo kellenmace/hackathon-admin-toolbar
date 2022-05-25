@@ -13,6 +13,7 @@ export default function Site({ siteName, siteURL }) {
     >
 
       <a className="ab-item" aria-haspopup="true" href={siteURL}>
+        <i className="bi bi-speedometer2" id="icon"></i>
         {siteName}
       </a>
 

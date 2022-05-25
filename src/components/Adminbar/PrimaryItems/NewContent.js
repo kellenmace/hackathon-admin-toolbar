@@ -17,6 +17,7 @@ export default function NewContent({ newPost, siteURL }) {
       <a className="ab-item" aria-haspopup="true" href={newPost}>
         <span className="ab-icon" aria-hidden="true"></span>
         {/* ::before */}
+        <i className="bi bi-plus-lg" id="icon"></i>
         <span className="ab-label">New</span>
       </a>
       <div className="ab-sub-wrapper">

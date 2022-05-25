@@ -1,10 +1,8 @@
 
 import SecondaryMenu from "./SecondaryMenu"
-import PrimaryMenu from "./PrimaryMenu"
 import WPlogo from "./PrimaryItems/WPlogo"
 import Site from "./PrimaryItems/Site"
 import Comments from "./PrimaryItems/Comments"
-import Updates from "./PrimaryItems/Updates"
 import NewContent from "./PrimaryItems/NewContent"
 import EditContent from "./PrimaryItems/EditContent"
 import GraphQl from "./PrimaryItems/GraphQL"
@@ -67,7 +65,7 @@ export default function Adminbar({ adminBarMenuItems }) {
         <ul id="wp-admin-bar-root-default" className="ab-top-menu">
           <WPlogo />
           <Site siteName={siteName} siteURL={siteURL} />
-          <Comments commentsCount={commentCount} editComments={editComments}/>
+          <Comments commentsCount={commentCount} editComments={editComments} />
           <NewContent newPost={newPost} siteURL={siteURL}/>
           <EditContent editPost={editPost}/>
           <GraphQl graphQL={ graphQL } />

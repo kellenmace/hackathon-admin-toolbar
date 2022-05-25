@@ -8,7 +8,7 @@ export default function WPlogo() {
     onMouseEnter={() => setClss("menupop hover")}
     onMouseLeave={() => setClss("menupop")}
     >
-      <a className="ab-item" aria-haspopup="true" href="http://atlasblueprintblog.local/wp-admin/about.php">
+      <a className="ab-item" aria-haspopup="true" href="">
         <span className="ab-icon" aria-hidden="true"></span>
         <span className="screen-reader-text">About WordPress</span>
       </a>
