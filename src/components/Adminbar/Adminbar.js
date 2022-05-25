@@ -9,17 +9,17 @@ import GraphQl from "./PrimaryItems/GraphQL"
 
 export default function Adminbar({ adminBarMenuItems }) {
 
-    const menuItems = adminBarMenuItems?.map(item => {
-    return {
-      id: item.id,
-      title: item.title,
-      group: item.group,
-      href: item.href,
-      parent: item.parent,
-      class: item.meta.class,
-      tabIndex: item.meta.tabIndex
-    }
-  })
+  //   const menuItems = adminBarMenuItems?.map(item => {
+  //   return {
+  //     id: item.id,
+  //     title: item.title,
+  //     group: item.group,
+  //     href: item.href,
+  //     parent: item.parent,
+  //     class: item.meta.class,
+  //     tabIndex: item.meta.tabIndex
+  //   }
+  // })
 
   // console.log(adminBarMenuItems)
   let userName = adminBarMenuItems[5].title;
@@ -34,28 +34,27 @@ export default function Adminbar({ adminBarMenuItems }) {
 
 
   // organized data into a hierarchy
-  const convertToHierarchy = (
-    menuItems = [],
-    { idKey = 'id', parentKey = 'parent', childrenKey = 'children' } = {}
-  ) => {
-    const tree = [];
-    const childrenOf = {};
+  // const convertToHierarchy = (
+  //   menuItems = [],
+  //   { idKey = 'id', parentKey = 'parent', childrenKey = 'children' } = {}
+  // ) => {
+  //   const tree = [];
+  //   const childrenOf = {};
     
-    menuItems.forEach((item) => {
-      const newItem = { ...item };
-      const {
-        [idKey]: id,
-        [parentKey]: parent = 0
-      } = newItem;
-      childrenOf[id] = childrenOf[id] || [];
-      newItem[childrenKey] = childrenOf[id];
-      parent ? (
-        childrenOf[parent] = childrenOf[parent] || []).push(newItem)
-        : tree.push(newItem);
-    });
-    return tree
-  }
-  let hierarchy = convertToHierarchy(menuItems)
+  //   menuItems.forEach((item) => {
+  //     const newItem = { ...item };
+  //     const {
+  //       [idKey]: id,
+  //       [parentKey]: parent = 0
+  //     } = newItem;
+  //     childrenOf[id] = childrenOf[id] || [];
+  //     newItem[childrenKey] = childrenOf[id];
+  //     parent ? (
+  //       childrenOf[parent] = childrenOf[parent] || []).push(newItem)
+  //       : tree.push(newItem);
+  //   });
+  //   return tree
+  // }
 
   console.log(graphQL)
 

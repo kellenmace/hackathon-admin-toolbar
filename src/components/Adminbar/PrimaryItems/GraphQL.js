@@ -1,5 +1,5 @@
 export default function GraphQl({ graphQL }) {
-  
+  console.log(graphQL)
   return (
     <li id="wp-admin-bar-graphiql-ide">
       <a className="ab-item" href={graphQL}>

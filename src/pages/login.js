@@ -7,7 +7,7 @@ export default function Login() {
   const [usernameEmail, setUserNameEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { login, isLoading, data, error } = useLogin();
+  const { login, data, error } = useLogin();
 
   const errorMessage = data?.error || error?.message;
 
